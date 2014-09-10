@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>raROP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/highlight/styles/github.css">
+    <!-- <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css" media="screen">  -->
+    <link rel="stylesheet" href="assets/bootstrap-theme-cosmo/cosmo.min.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand title" href="/"> &nbsp; raROP</a>
+            <p class="navbar-text navbar-right">radare2 + node.js ROP chain builder</p>
+        </div>
+
+        <form class="navbar-form navbar-right" id="searchform" role="search">
+            <div class="form-group">
+                <input type="text" size="30" class="form-control" id='filter' placeholder="RegExp Expression">
+            </div>
+            <button type="button" id="search" class="btn btn-default"
+                    onclick="javascript:filterGadgets()">Search</button>
+        </form>
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="container" style="width: 90%;">
+
+    <br><br>
+
+
+    <div class="row">
+        <!-- ROP Chain -->
+        <div class="col-lg-6">
+            <!-- Controls button row -->
+            <h2 style="display: inline-block;">Chain</h2>
+            <div class="option-buttons">
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:chainEdit(null)">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:optionCopy()">
+                    <span class="glyphicon glyphicon-repeat"></span> Copy
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:optionDebug()">
+                    <span class="glyphicon glyphicon-play"></span> Debug
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:optionSave()">
+                    <span class="glyphicon glyphicon-cloud-download"></span> Save
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:optionLoad()">
+                    <span class="glyphicon glyphicon-cloud-upload"></span> Load
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:optionClear()">
+                    <span class="glyphicon glyphicon-trash"></span> Clear
+                </button>
+            </div>
+            <div id="chain"></div>
+        </div>
+
+        <!-- Gadgets -->
+        <div class="col-lg-6">
+            <h2 style="display: inline-block;">Gadgets</h2>
+            <h4 style="display: inline-block;" id="bintitle"></h4>
+            <div class="option-buttons">
+                <button type="button" class="btn btn-primary btn-sm" onclick="javascript:settingsShow();">
+                    <span class="glyphicon glyphicon-cog"></span> Settings
+                </button>
+            </div>
+            <div id="gadgets"></div>
+        </div>
+    </div>
+
+<footer></footer>
+</div>
+
+<!-- Generic modal -->
+<div class="modal" id="modal"></div>
+
+
+<script src="assets/jquery/dist/jquery.min.js"></script>
+<script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/highlight/highlight.pack.js"></script>
+<script src="assets/mustache/mustache.js"></script>
+<script src="javascripts/rarop.js"></script>
+<script src="javascripts/util.js"></script>
+</body>
+</html>

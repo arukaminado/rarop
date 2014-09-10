@@ -1,0 +1,22 @@
+<table class="table table-striped table-hover gadgets" id="tblGadgets">
+    <thead>
+    <tr>
+        <th>Address</th>
+        <th>Gadget</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#gadgets}}
+        <tr id="{{offset}}">
+            <td>0x{{hexoffset}}</td>
+            <td type="opcode">{{opcodes}}</td>
+            <td>
+                <a href="javascript:gadgetAdd({{offset}})">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </a>
+            </td>
+        </tr>
+    {{/gadgets}}
+    </tbody>
+</table>

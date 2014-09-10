@@ -1,0 +1,51 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Debugger Settings</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <input type="hidden" name="id" id="edit-id" value="{{id}}">
+                <fieldset>
+                    <!-- Terminal -->
+                    <div class="form-group">
+                        <label for="select" class="col-lg-2 control-label">Terminal</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="settings-term">
+                                {{#terminals}}
+                                    <option {{#selected}}selected{{/selected}}>{{terminal}}</option>
+                                {{/terminals}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Debugger -->
+                    <div class="form-group">
+                        <label for="select" class="col-lg-2 control-label">Debugger</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="settings-dbg">
+                                {{#debuggers}}
+                                    <option {{#selected}}selected{{/selected}}>{{debugger}}</option>
+                                {{/debuggers}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- breakpoint -->
+                    <div class="form-group">
+                        <label for="data" class="col-lg-2 control-label">Breakpoint</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" placeholder="Address of main()"
+                                   maxlength="18" id="settings-bp" type="text" value="{{bp}}">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:settingsSave();">Save changes</button>
+        </div>
+    </div>
+</div>

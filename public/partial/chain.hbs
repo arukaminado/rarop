@@ -1,0 +1,42 @@
+<table class="table table-striped table-hover gadgets" id="tblChain">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Data</th>
+        <th>Gadget</th>
+        <th>Comment</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#gadgets}}
+    <tr class="{{color}}">
+        <td><input type="checkbox" name="{{id}}"></td>
+        <td>{{hexoffset}}</td>
+        <td type="opcode">{{opcodes}}</td>
+        <td style="font-style: italic">
+            //<input type="text" class="comment" index="{{id}}" value="{{comment}}">
+        </td>
+        <td>
+            <a href="javascript:chainUp({{id}})" title="Move Up">
+                <i class="glyphicon glyphicon-arrow-up"></i>
+            </a>
+            <a href="javascript:chainDown({{id}})" title="Move Down">
+                <i class="glyphicon glyphicon-arrow-down"></i>
+            </a>
+            <a href="javascript:chainColor({{id}})" title="Change Color">
+                <i class="glyphicon glyphicon-tint"></i>
+            </a>
+            <a href="javascript:chainDel({{id}})" title="Remove">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+            {{#custom}}
+                <a href="javascript:chainEdit({{id}})" title="Edit">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+            {{/custom}}
+        </td>
+    </tr>
+    {{/gadgets}}
+    </tbody>
+</table>

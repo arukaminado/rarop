@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+var fs = require('fs');
+var debug = require('debug')('rarop');
+var app = require('../app');
+
+var globals = require('../lib/globals');
+var r2rop = require('../lib/r2rop');
+
+
+/* Check args */
+if (!process.argv[2]) {
+    console.log("Usage: " + process.argv[1] + " file");
+    process.exit(1);
+}
+
+if (!fs.existsSync(process.argv[2])) {
+    console.log("Invalid file");
+    process.exit(0);
+}
+
+/* Init radare and generate gadgets */
+globals.binary = process.argv[2];
+globals.gadgets = [];
+console.log("Analyzing binary, please wait...");
+r2rop.init(function (err) {
+    console.log("Analysis finished.");
+    app.listen(9091, 'localhost', function() {
+        console.log("Point your browser to http://localhost:9091");
+    });
+});
+
+

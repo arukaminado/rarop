@@ -1,0 +1,36 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Gadget {{action}}</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <input type="hidden" name="id" id="edit-id" value="{{id}}">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="data" class="col-lg-2 control-label">Data</label>
+                        <div class="col-lg-7">
+                            <input class="form-control" placeholder="FFFFFFFF (hexstring)"
+                                   maxlength="{{maxlen}}" id="edit-hexoffset" type="text" value="{{hexoffset}}">
+                        </div>
+                        <label class="col-lg-3 control-label" style="font-size: 12px;">
+                            (Must be {{len}} bytes)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment" class="col-lg-2 control-label">Comment</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" placeholder="Comment"
+                                   type="text" id="edit-comment" value="{{comment}}">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:saveGadget();">Save changes</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+.comment {
+    line-height: 16px;
+    margin: 0px;
+    border: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: transparent;
+    font-style: italic;
+}
+
+table.gadgets {
+    font-size: 12px;
+}
+
+table.gadgets a {
+    text-decoration: none;
+}
+
+a.title:hover, a.title:active, a.title:visited, a.title:link {
+    font-weight: bold;
+    /* color: #ffffff; */
+}
+
+.option-buttons {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+/*
+.form-control, .btn, button, input {
+    border-radius: 0px;
+} */
+
