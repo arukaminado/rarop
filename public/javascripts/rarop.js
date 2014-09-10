@@ -166,7 +166,14 @@ function optionCopy() {
 }
 
 function optionDebug() {
-    $.get('/debug', function (template) {
+
+    var data = {
+        chain: ropchain,
+        term: localStorage.term,
+        debugger: localStorage.dbg
+    };
+
+    $.post('/debug', data, function (response) {
 
     });
 }
@@ -373,7 +380,8 @@ $(document).ready(function () {
         });
 
         /* Set binary name */
-        $('#bintitle').html(" &nbsp;for " + bininfo.binary);
+        var filename = bininfo.binary.replace(/\\/g,'/').replace( /.*\//, '' );
+        $('#bintitle').html(" &nbsp;for " + filename);
 
         $.get('/partial/gadgets.hbs', function (template) {
             templateGadgets = template;
