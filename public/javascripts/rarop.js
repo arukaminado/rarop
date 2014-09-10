@@ -323,6 +323,47 @@ function printChain() {
     /* Save & set handlers */
     setCommentHandler();
     saveChain();
+
+    /* Enable drag & drop */
+    var fixHelperModified = function(e, tr) {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+        $helper.children().each(function(index) {
+            $(this).width($originals.eq(index).width())
+        });
+        return $helper;
+    };
+
+    var updateIndex = function(e, ui) {
+        var origPosition = null;
+        var newPosition = null;
+
+        $('input[type=checkbox]', ui.item).each(function (i) {
+            origPosition = parseInt($(this).attr('name'));
+        });
+
+        $('input[type=checkbox]', ui.item.prev()).each(function (i) {
+            newPosition = parseInt($(this).attr('name'));
+        });
+
+        /* Fix new pos */
+        if (newPosition === null)
+            newPosition = 0;
+        else if (newPosition < origPosition)
+            newPosition++;
+
+        /* Resort array */
+        ropchain.move(origPosition, newPosition);
+        for (var x=0; x<ropchain.length; x++)
+            ropchain[x].id = x;
+        printChain();
+    };
+
+    $('#tblChain tbody').sortable({
+        helper: fixHelperModified,
+        stop: updateIndex
+    });
+    $('#tblChain tbody').disableSelection();
 }
 
 function printGadgets(data) {
