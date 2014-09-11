@@ -121,8 +121,12 @@ function setCommentHandler() {
  *  Options header buttons
  */
 function optionClear() {
-    ropchain = [];
-    printChain();
+    var r = confirm("This will clear the current chain\n\nAre you sure?");
+
+    if (r == true) {
+        ropchain = [];
+        printChain();
+    }
 }
 
 function optionSave() {
@@ -238,6 +242,7 @@ function saveGadget() {
     $('#modal').modal('hide');
     printChain();
 }
+
 
 function settingsShow() {
     var localDbg = localStorage.dbg;
