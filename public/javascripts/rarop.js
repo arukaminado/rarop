@@ -174,7 +174,8 @@ function optionDebug() {
     };
 
     $.post('/debug', data, function (response) {
-
+        if (response.result !== 'ok')
+            alert("Error debugging!!!\n\nTry adjusting settings");
     });
 }
 
