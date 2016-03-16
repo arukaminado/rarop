@@ -24,7 +24,6 @@ function dbgFileGdb(chain) {
             break;
         default:
             return 1;
-            break;
     }
 
     /* Set breakpoint at entry  & run*/
@@ -52,6 +51,11 @@ function dbgFileGdb(chain) {
     fs.writeFileSync(cmdfile, content);
 
     return 0;
+}
+
+
+function searchRet(callback) {
+
 }
 
 
