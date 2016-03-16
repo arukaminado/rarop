@@ -34,7 +34,7 @@ function dbgFileGdb(chain) {
     for (var x=0; x<chain.length; x++) {
         var offset = (x*width).toString(16);
 
-        content += 'set *(' + type + ' *)($sp+' + offset + ') = ' +
+        content += 'set *(' + type + ' *)($sp+0x' + offset + ') = ' +
             '(' + type + ' *)0x' + chain[x].hexoffset + '\n';
     }
 
