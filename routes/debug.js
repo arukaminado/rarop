@@ -63,25 +63,31 @@ function dbgFileR2(chain) {
 
     var content = "";
     var width =  globals.info.bin.bits/8;
+    var pcreg = (width == 8)? "rip" : "eip";
+    var spreg = (width == 8)? "rsp" : "esp";
 
 
     /* Prepare the stack */
     for (var x=0; x<chain.length; x++) {
         var offset = (x*width).toString(16);
-        content += 'wv 0x' + chain[x].hexoffset + ' @ `dr?sp`+0x' + offset + '\n';
+        content += 'wv' + width + ' 0x' + chain[x].hexoffset +
+                    ' @ `dr?' + spreg + '`+0x' + offset + '\n';
     }
 
     /* Set IP to some ret & continue */
-    content += 'dr pc=0x' + globals.retaddr.toString(16) + '\n';
+    content += 'dr '+pcreg+'=0x' + globals.retaddr.toString(16) + '\n';
 
     /* Create step macro */
-    content += '(step, ds, pd 1 @ `dr?pc`)\n';
-    content += '$step=.(step)\n';
+    //content += '(step, ds, pd 1 @ `dr?pc`)\n';
+    //content += '$step=.(step)\n';
 
     /* Display message */
-    content += 'echo ------------------------------------------------------------\n';
-    content += 'echo - Your rop chain is ready. use "ds" or "$step" to debug it -\n';
-    content += 'echo ------------------------------------------------------------\n';
+    content += 'echo -----------------------------\n';
+    content += 'echo - Your rop chain is ready.  -\n';
+    content += 'echo -----------------------------\n';
+
+    /* Go to Visual mode */
+    content += 'Vpp\n';
 
 
     fs.writeFileSync(cmdfile, content);
