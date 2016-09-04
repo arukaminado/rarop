@@ -131,10 +131,12 @@ function optionClear() {
 
 function optionSave() {
     var saveData = JSON.stringify({
-        ropchain:ropchain,
+        ropchain: ropchain,
         binary: bininfo.binary,
         hash: bininfo.hash
     });
+
+    saveData = encodeURI(saveData);
 
     var a         = document.createElement('a');
     a.href        = 'data:attachment/txt,' + saveData;
