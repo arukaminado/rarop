@@ -125,9 +125,14 @@ router.post('/', function(req, res) {
             result = dbgFileGdb(req.body.chain);
             args = ['gdb', globals.binary, '-x', cmdfile];
             break;
+
         case 'r2':
             result = dbgFileR2(req.body.chain);
-            args = ['sudo', 'r2', '-i', cmdfile, '-d', globals.binary];
+            args = ['r2', '-i', cmdfile, '-d', globals.binary];
+
+            /* Stupid OSX needs sudo... */
+            if (process.platform === 'darwin')
+               args.unshift('sudo');
             break;
     }
 
@@ -143,9 +148,6 @@ router.post('/', function(req, res) {
         args = [ '-a', 'Terminal', shPath ];
     } else {
         /* Launch the debugger in a terminal */
-        if (process.platform === 'darwin') {
-            args.unshift('sudo');
-        }
         args.unshift('-e');
         args.unshift(title);
         args.unshift('-T');
