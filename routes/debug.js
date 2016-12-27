@@ -63,15 +63,23 @@ function dbgFileR2(chain) {
 
     var content = "";
     var width =  globals.info.bin.bits/8;
+    /* NOTE: non portable register names, should use r2 aliases */
     var pcreg = (width == 8)? "rip" : "eip";
     var spreg = (width == 8)? "rsp" : "esp";
 
+    content += '.dr*\n';
 
     /* Prepare the stack */
     for (var x=0; x<chain.length; x++) {
         var offset = (x*width).toString(16);
+/*
         content += 'wv' + width + ' 0x' + chain[x].hexoffset +
                     ' @ `dr?' + spreg + '`+0x' + offset + '\n';
+        content += 'wv' + width + ' 0x' + chain[x].hexoffset +
+                    ' @r:sp+0x' + offset + '\n';
+*/
+        content += 'wv' + width + ' 0x' + chain[x].hexoffset +
+                    ' @ '+spreg+'+0x' + offset + '\n';
     }
 
     /* Set IP to some ret & continue */
@@ -82,20 +90,17 @@ function dbgFileR2(chain) {
     //content += '$step=.(step)\n';
 
     /* Display message */
-    content += 'echo -----------------------------\n';
-    content += 'echo - Your rop chain is ready.  -\n';
-    content += 'echo -----------------------------\n';
+    content += '?E Your rop chain is ready.\n'
+    content += '?ik\n'
+    content += 'sr pc\n'
 
     /* Go to Visual mode */
-    content += 'Vpp\n';
-
+    content += 'Vpp.\n';
 
     fs.writeFileSync(cmdfile, content);
 
     return 0;
 }
-
-
 
 router.post('/', function(req, res) {
 
@@ -115,7 +120,6 @@ router.post('/', function(req, res) {
     var term = req.body.term;
     var dbg = req.body.debugger;
 
-
     switch (dbg) {
         case 'gdb':
             result = dbgFileGdb(req.body.chain);
@@ -123,29 +127,32 @@ router.post('/', function(req, res) {
             break;
         case 'r2':
             result = dbgFileR2(req.body.chain);
-            args = ['r2', '-i', cmdfile, '-d', globals.binary];
+            args = ['sudo', 'r2', '-i', cmdfile, '-d', globals.binary];
             break;
     }
-
 
     if (result) {
         res.send({result: "error"});
         return;
     }
 
-
-    /* Launch the debugger in a terminal */
-    if (process.platform === 'darwin')
-        args.unshift('sudo');
-
-    args.unshift('-e');
-    args.unshift(title);
-    args.unshift('-T');
+    if (term === 'open') {
+        const shPath = '/tmp/rarop.sh';
+        fs.writeFileSync(shPath, '#!/bin/sh\n' + args.join(' ') + '\nread A');
+        fs.chmodSync(shPath, 0755);
+        args = [ '-a', 'Terminal', shPath ];
+    } else {
+        /* Launch the debugger in a terminal */
+        if (process.platform === 'darwin') {
+            args.unshift('sudo');
+        }
+        args.unshift('-e');
+        args.unshift(title);
+        args.unshift('-T');
+    }
     spawn(term, args);
 
-
     res.send({result: "ok"});
-
 });
 
 
