@@ -24,4 +24,4 @@ Then point your browser to http://localhost:9091
 ## Screenshot
 
 
-[![screenshot](http://nixgeneration.com/~jaime/misc/rarop.png)](http://nixgeneration.com/~jaime/misc/rarop.png)
+[![screenshot](http://nixgeneration.mooo.com/~jaime/misc/rarop.png)](http://nixgeneration.mooo.com/~jaime/misc/rarop.png)
